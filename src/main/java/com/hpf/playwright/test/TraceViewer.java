@@ -26,6 +26,6 @@ public class TraceViewer {
             assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Installation"))).isVisible();
 
             browserContext.tracing().stop(new Tracing.StopOptions().setPath(Paths.get("trace.zip")));
-        });
+        }, false);
     }
 }

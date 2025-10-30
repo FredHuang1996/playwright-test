@@ -27,11 +27,13 @@ public class PlaywrightUtils {
      * 执行测试
      * @param browserContextConsumer
      */
-    public static void executeBrowserContext(Consumer<BrowserContext> browserContextConsumer){
+    public static void executeBrowserContext(Consumer<BrowserContext> browserContextConsumer, boolean headless){
         Playwright.CreateOptions createOptions = new Playwright.CreateOptions();
         try (Playwright playwright = Playwright.create(createOptions)){
             BrowserType chromium = playwright.chromium();
-            try (Browser browser = chromium.launch()){
+            BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions();
+            launchOptions.setHeadless(headless);
+            try (Browser browser = chromium.launch(launchOptions)){
                 BrowserContext browserContext = browser.newContext();
                 browserContextConsumer.accept(browserContext);
             }
